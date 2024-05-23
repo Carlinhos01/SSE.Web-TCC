@@ -559,25 +559,57 @@ function removeUserFromSelected(userId) {
 }
 
 // Função para alternar a seleção de um usuário
-function toggleSelectUser(user, divElement) {
+function toggleSelectUser(user, element) {
   const index = selectedUsers.findIndex((u) => u.id === user.id);
   const myModal = document.getElementById("myModal");
+  const addUserElement = document.querySelector("#add-user ul");
+
   if (index === -1) {
     selectedUsers.push(user);
     saveSelectedUsers(selectedUsers);
-    divElement.classList.add("selected");
+    element.classList.add("selected");
     myModal.style.display = "flex";
     addUserToSelected(user);
-    addUserToWrapper(user);
+    addUserToWrapper(user, addUserElement);
   } else {
     selectedUsers.splice(index, 1);
     saveSelectedUsers(selectedUsers);
-    divElement.classList.remove("selected");
+    element.classList.remove("selected");
     myModal.style.display = "none";
     removeUserFromSelected(user.id);
-    removeUserFromWrapper(user.id);
+    removeUserFromWrapper(user.id, addUserElement);
   }
 }
+
+// Funções auxiliares para manipulação de elementos
+function addUserToWrapper(user, addUserElement) {
+  const userItem = document.createElement("li");
+  userItem.classList.add("user-item");
+  userItem.textContent = user.name; // Supondo que o objeto user tenha uma propriedade name
+  userItem.dataset.userId = user.id; // Adiciona um atributo de dados com o ID do usuário
+  addUserElement.appendChild(userItem);
+}
+
+function removeUserFromWrapper(userId, addUserElement) {
+  const userItem = addUserElement.querySelector(`.user-item[data-user-id="${userId}"]`);
+  if (userItem) {
+    addUserElement.removeChild(userItem);
+  }
+}
+
+// Funções mockup para salvar e remover usuários selecionados
+function saveSelectedUsers(users) {
+  console.log("Usuarios salvos:", users);
+}
+
+function addUserToSelected(user) {
+  console.log("Usuario adicionado:", user);
+}
+
+function removeUserFromSelected(userId) {
+  console.log("Usuario removido:", userId);
+}
+
 
 // Função para fechar o modal
 function closeUserModal(modalId) {
@@ -1017,6 +1049,10 @@ window.addEventListener("load", function () {
 });
 
 
+document.getElementById('telefone').addEventListener('input', function (e) {
+  let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+  e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+});
 
 
 
@@ -1063,7 +1099,99 @@ window.addEventListener("load", function () {
 
 
 
+function toggleSelection(buttonClicked) {
+  const buttons = document.querySelectorAll('.btm-1, .btm-2');
+  const btmGroup = document.querySelector('.btm-group');
+  const efTrazBtm = document.querySelectorAll('.ef_traz-btm');
+  const btm1 = document.querySelector('.btm-1');
+  const btm2 = document.querySelector('.btm-2');
+  const btmUnic = document.querySelector('.btm-unic');
+
+  // Remove a classe 'selected' de todos os botões
+  buttons.forEach(button => button.classList.remove('selected'));
+
+  // Adiciona a classe 'selected' apenas ao botão clicado
+  buttonClicked.classList.add('selected');
+
+  // Remove a classe 'active' de todos os ef_traz-btm
+  efTrazBtm.forEach(efTraz => efTraz.classList.remove('active'));
+
+  // Adiciona a classe 'active' ao ef_traz-btm correspondente
+  if (buttonClicked.classList.contains('btm-1')) {
+    btmGroup.classList.remove('selected-bg');
+    efTrazBtm[0].classList.add('active');
+    efTrazBtm[1].classList.remove('active');
+    btm2.classList.remove('selected');
+    btmUnic.classList.add('selected-bg');
+  } else if (buttonClicked.classList.contains('btm-2')) {
+    btmGroup.classList.add('selected-bg');
+    efTrazBtm[0].classList.remove('active');
+    efTrazBtm[1].classList.add('active');
+    btm1.classList.remove('selected');
+    btmUnic.classList.remove('selected-bg');
+  }
+}
+
+
+$(function() {
+  $("#add-user-dt_nasc").datepicker({
+      dateFormat: "dd/mm/yy",
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+0",
+      showButtonPanel: true,
+      beforeShow: function(input, inst) {
+          setTimeout(function() {
+              inst.dpDiv.css({
+                  top: $(input).offset().top + $(input).outerHeight(),
+                  left: $(input).offset().left
+              });
+          }, 0);
+      }
+  });
+
+  const dateInput = $('#add-user-dt_nasc');
+  const label = $('label[for="add-user-dt_nasc"]');
+  
+  dateInput.on('input change', function() {
+      if (dateInput.val()) {
+          label.css('opacity', '0');
+          label.css('visibility', 'hidden');
+          label.css('transform', 'translateY(-50%) scale(0.8)');
+      } else {
+          label.css('opacity', '1');
+          label.css('visibility', 'visible');
+          label.css('transform', 'translateY(-50%) scale(1)');
+      }
+  });
+});
 
 
 
 
+const telefoneInput = document.getElementById("telefone");
+telefoneInput.addEventListener("input", (e) => {
+  let value = telefoneInput.value.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+  if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
+  if (value.length > 2 && value.length <= 7) {
+    value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+  } else if (value.length > 7) {
+    value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7, 11)}`;
+  }
+  telefoneInput.value = value;
+});
+
+
+
+
+const dataNascimentoInput = document.getElementById("add-user-dt_nasc");
+dataNascimentoInput.addEventListener("input", (e) => {
+  let value = dataNascimentoInput.value.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+  if (value.length > 8) value = value.slice(0, 8); // Limita a 8 dígitos
+  if (value.length > 2 && value.length <= 4) {
+    value = `${value.slice(0, 2)}/${value.slice(2)}`;
+  } else if (value.length > 4) {
+    value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4, 8)}`;
+  }
+  dataNascimentoInput.value = value;
+});

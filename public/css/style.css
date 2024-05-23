@@ -223,7 +223,7 @@ body {
 .ef_traz-btm {
   width: 100%;
   height: 80px;
-  background-color: #174738;
+  background-color: #494949;
   position: relative;
   border-radius: 20px;
   bottom: -10px;
@@ -232,10 +232,10 @@ body {
 
 .cont-btm .btm-1 {
   position: relative;
-  background-color: var(--primary-clr);
+  background-color: #585858;
   width: 100%;
   height: 80px;
-  border: 5px solid #174738;
+  border: 5px solid #494949;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -263,10 +263,10 @@ body {
 
 .cont-btm .btm-2 {
   position: relative;
-  background-color: var(--primary-clr);
+  background-color: #585858;
   width: 100%;
   height: 80px;
-  border: 5px solid #174738;
+  border: 5px solid #494949;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -495,9 +495,9 @@ body {
     margin: auto;
     padding: 20px;
     width: 40%;
-    max-height: 80vh;
+    height: 40vw;
     border-radius: 8px;
-    transform: translateY(15%);
+    transform: translateY(10%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -511,7 +511,16 @@ body {
 
 #add-user-form {
     display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
+    background-color: var(--primary-clr);
+    height: auto;
+    width: 100%;
+    position: relative;
+    padding: 1vw;
+    border-radius: .5vw;
+    color: #4e4943;
 }
 
 .form-group {
@@ -520,33 +529,25 @@ body {
     margin-bottom: 10px;
 }
 
-#add-user-form input,
-#add-user-form select {
-    width: 48%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-#add-user-form input[type="date"] {
-    padding: 10px 5px;
-}
 
 .btn-submit {
-    background-color: #007bff;
+    background-color: #1C5845;
     color: white;
+    width: 94%;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     align-self: center;
+    position: absolute;
+    bottom: 1vw;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.btn-submit:hover {
-    background-color: #0056b3;
+.btn-submit:hover{
+  background-color: #174738;
 }
-
 
 
 
@@ -560,7 +561,7 @@ body {
   .addmodal-content h2 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: #0056b3;
+    color: #174738;
     text-align: center;
   }
 
@@ -618,6 +619,9 @@ body {
   width: 100%;
   height: calc(100% - 250px);
   z-index: 10111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-screen.active {
@@ -632,6 +636,8 @@ body {
 
 .cont-modal-user-carteirinha {
   background-color: yellow;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .cont-modal-user-chat {
@@ -639,7 +645,7 @@ body {
 }
 
 .cont-modal-user-responsavel {
-  background-color: green;
+  background-color: white;
 }
 
 .cont-modal-inicio {
@@ -861,18 +867,6 @@ body {
   fill: #333;
   width: 30px;
   height: auto;
-}
-input {
-  height: 40px;
-  width: 80%;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  resize: none;
-  border: none;
-  color: #ccc;
-  font-size: 1.5rem;
 }
 input::placeholder {
   color: #ccc;
@@ -1972,14 +1966,12 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-top: 10px;
+  margin-top: -3vw;
 }
 
 /* no-event img:  img que vc aparecer quando não tiver evento */
 .events .no-event img {
-  width: 250px;
+  width: 70%;
   height: auto;
 }
 
@@ -2250,4 +2242,296 @@ input:focus {
 
 .confirm-delete-box button.delete-no:hover {
   background-color: #2980b9;
+}
+
+
+
+.cont-dados {
+  height: 90%;
+  width: 95%;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+
+
+
+
+.cont-dados{
+  height: 90%;
+  width: 95%;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.cont-0{
+  width: auto;
+  height: 2vw;
+  display: flex;
+  flex-direction: row;  
+  position: absolute;
+  right: 0 !important;
+  padding: 10px;
+}
+.cont-0 h3{
+  width: auto;
+  font-weight: 800;
+  font-size: 18px;
+}
+.cont-0 .cont-id{
+  width: auto;
+}
+.cont-0 .cont-id p{
+  font-weight: 800;
+  font-size: 18px;
+  margin-left: 3px;
+}
+.oi{
+  margin-bottom: 10px;
+  width: auto;
+  padding: 10px 0;
+  border-bottom: 3px solid var(--primary-clr);
+}
+.cont-10{
+  border: none;
+  flex-direction: row;
+  position: relative;
+}
+.oi h3{
+  margin-bottom: 5px;
+  color: var(--primary-clr);
+}
+.oi ~ p{
+  color: #333;
+}
+.card-cont{
+  width: 50%;
+  height: 100%;
+  position: relative;
+  left: 0vw;
+  display: flex;
+  justify-content: space-between;
+}
+.card-all{
+  width: 80%;
+  height: 16vw;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 1.5vw;
+}
+.card{
+  width: 100%;
+  height: 12vw;
+  background-color: var(--primary-clr);
+  border-radius: .5vw;
+  z-index: 150150;
+  position: relative;
+  overflow: hidden;
+}
+.img-logo-card{
+  width: 4vw;
+  margin: 1vw;
+  z-index: 12000000;
+}
+
+.poligonos-img-card1{
+  width: 4vw;
+  position: absolute;
+  top: -1vw;
+  left: -1vw;
+  z-index: -1;
+}
+
+.poligonos-img-card2{
+  width: 5vw;
+  position: absolute;
+  left: 5vw;
+  top: 2vw;
+  z-index: 2;
+}
+
+.poligonos-img-card3{
+  width: 6vw;
+  position: absolute;
+  bottom: -2vw;
+  right: -2vw;
+  z-index: 2;
+}
+
+.poligonos-img-card4{
+  width: 4vw;
+  position: absolute;
+  bottom: 1vw;
+  left: -2vw;
+  z-index: 2;
+}
+
+.poligonos-img-card5{
+  width: 5vw;
+  position: absolute;
+  bottom: 6vw;
+  right: 3vw;
+  z-index: 2;
+}
+
+.poligonos-img-card6{
+  width: 6vw;
+  position: absolute;
+  bottom: -2vw;
+  right: 8vw;
+  z-index: 2;
+}
+
+.card h1{
+  font-size: 1.2vw;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.801);
+  position: absolute;
+  bottom: 1vw;
+  right: 1vw;
+  z-index: 150;
+}
+
+.dados_card-carterinha{
+  width: 50%;
+  height: 70%;
+  position: absolute;
+  right: 0vw;
+  display: flex;
+  justify-content: space-between;
+  top: 2vw;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.cont-itens-cart{
+  width: 100%;
+  height: 5vw;
+  border-radius: .4vw;
+}
+
+.cont-itens-cart-tx{
+  width: 90%;
+  height: 2.5vw;
+  background-color: var(--primary-clr);
+  border-radius: .4vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: start;
+}
+.cont-itens-cart-tx p{
+  color: white;
+  font-size: 1vw;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-left: 1vw;
+}
+.cont-card-user-add{
+  background-color: var(--primary-clr);
+  border-radius: .4vw;
+  height: 30vw;
+  position: relative;
+  overflow-y: auto; /* Adiciona scroll vertical */
+}
+#add-user-name,
+#add-user-email,
+#telefone,
+#add-user-dt_nasc,
+#cur-ser-ens,
+#instituicao,
+#add-user-genero,
+#add-user-cpf,
+#add-user-rg,
+#add-user-pcd,
+#add-user-icon,
+#op_card,
+#NomeResponsavel,
+#EmailResponsavel,
+#TelefoneResponsavel,
+#RGResponsavel,
+#CPFResponsavel{
+  height: 2.5vw;
+  width: 100%;
+  background: white;
+  border: none;
+  color: #4e4943;
+  font-size: 1vw;
+  letter-spacing: .1vw;
+  font-weight: 600;
+  padding: 0 1vw;
+  border: .3vw solid #174738;
+  border-radius: .4vw;
+  margin-bottom: 1vw;
+}
+
+#add-user-dt_nasc {
+  color: #ccc;
+  font-size: 1vw;
+}
+
+/* Removendo as setas de incremento/decremento para compatibilidade com alguns navegadores */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+select{
+  width: 100% !important;
+  height: 50% !important;
+}
+#add-user-genero,
+#add-user-pcd,
+#add-user-icon,
+#op_card{
+  color: #4e4943;
+  height: 2.5vw !important;
+  padding: 0 1vw !important;
+}
+#labelforRsp{
+  color: white;
+  letter-spacing: .1vw;
+  font-size: 1.5vw;
+  font-weight: 700;
+  margin: 1vw 0;
+}
+#labelforaluhj{
+  color: white;
+  letter-spacing: .1vw;
+  font-size: 1.5vw;
+  font-weight: 700;
+  margin: 1vw 0;
+}
+
+
+.btm-1.selected {
+  background-color: #1C5845; /* Cor selecionada */
+  color: white; /* Cor do texto */
+  border: 5px solid #174738;
+}
+.btm-2.selected {
+  background-color: #1C5845; /* Cor selecionada */
+  color: white; /* Cor do texto */
+  border: 5px solid #174738;
+}
+.selected-bg {
+z-index: -22;
+}
+
+.ef_traz-btm.active{
+
+  border-radius: 20px;
+  background-color: #174738;
+  width: 100%;
+  height: 80px;
+  position: relative;
+  bottom: -10px;
+  z-index: -21;
 }
