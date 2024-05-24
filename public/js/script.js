@@ -1,6 +1,7 @@
 /**
  * Constantes e variáveis globais
  */
+// Capturando os elementos do formulário
 
 // Elementos HTML
 const calendar = document.querySelector(".calendar"),
@@ -21,7 +22,26 @@ const calendar = document.querySelector(".calendar"),
   addEventFrom = document.querySelector(".event-time-from"),
   addEventTo = document.querySelector(".event-time-to"),
   addEventDescricion = document.querySelector(".event-descricao"),
-  addEventSubmit = document.querySelector(".add-event-btn");
+  addEventSubmit = document.querySelector(".add-event-btn"),
+
+  form = document.getElementById('add-user-form'),
+  nomeAlunoInput = document.getElementById('add-user-name'),
+  emailInput = document.getElementById('add-user-email'),
+  telefoneInput = document.getElementById('telefone'),
+  dtNascInput = document.getElementById('add-user-dt_nasc'),
+  generoSelect = document.getElementById('add-user-genero'),
+  cursoInput = document.getElementById('cur-ser-ens'),
+  instituicaoInput = document.getElementById('instituicao'),
+  cpfInput = document.getElementById('add-user-cpf'),
+  rgInput = document.getElementById('add-user-rg'),
+  pcdSelect = document.getElementById('add-user-pcd'),
+  iconeSelect = document.getElementById('add-user-icon'),
+  opCardSelect = document.getElementById('op_card'),
+  nomeResponsavelInput = document.getElementById('NomeResponsavel'),
+  emailResponsavelInput = document.getElementById('EmailResponsavel'),
+  telefoneResponsavelInput = document.getElementById('TelefoneResponsavel'),
+  rgResponsavelInput = document.getElementById('RGResponsavel'),
+  cpfResponsavelInput = document.getElementById('CPFResponsavel');
 
 // Lista de usuários selecionados
 const selectedUsers = [];
@@ -154,31 +174,213 @@ function fillAddUserList(users = allUsers) {
 // Preenche a lista de usuários ao carregar a página
 fillAddUserList();
 
-// Evento para cadastrar novo usuário
-document
-  .getElementById("add-user-form")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    const userName = document.getElementById("add-user-name").value;
-    const userEmail = document.getElementById("add-user-email").value;
-    const userPhone = document.getElementById("add-user-phone").value;
-    const userIcon = document.getElementById("add-user-icon").value;
 
-    // Adicione os dados do novo usuário ao array allUsers
-    const newUser = {
-      id: allUsers.length + 1,
-      name: userName,
-      email: userEmail,
-      phone: userPhone,
-      icon: userIcon,
-    };
-    allUsers.push(newUser);
-    console.log("Novo usuário cadastrado:", newUser);
-    closeAddModal();
-    // Atualize a lista de usuários no add-user
-    saveUsers(); // Salva os usuários no localStorage
-    fillAddUserList(); // Atualiza a lista de usuários na página
-  });
+document.getElementById("add-user-form").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  // Obter os valores dos campos do formulário
+  const userIcon = document.getElementById("add-user-icon").value;
+  console.log("Icone do usuário:", userIcon);
+  const nomeAluno = document.getElementById('add-user-name').value;
+  console.log("Nome do aluno:", nomeAluno);
+  const email = document.getElementById('add-user-email').value;
+  console.log("Email do aluno:", email);
+  const telefone = document.getElementById('telefone').value;
+  console.log("Telefone do aluno:", telefone);
+  const dtNasc = document.getElementById('add-user-dt_nasc').value;
+  console.log("Data de Nascimento do aluno:", dtNasc);
+  const genero = document.getElementById('add-user-genero').value;
+  console.log("Gênero do aluno:", genero);
+  const curso = document.getElementById('cur-ser-ens').value;
+  console.log("Curso do aluno:", curso);
+  const instituicao = document.getElementById('instituicao').value;
+  console.log("Instituição do aluno:", instituicao);
+  const cpf = document.getElementById('add-user-cpf').value;
+  console.log("CPF do aluno:", cpf);
+  const rg = document.getElementById('add-user-rg').value;
+  console.log("RG do aluno:", rg);
+  const pcd = document.getElementById('add-user-pcd').value;
+  console.log("PCD do aluno:", pcd);
+  const nomeResponsavel = document.getElementById('NomeResponsavel').value;
+  console.log("Nome do responsável:", nomeResponsavel);
+  const emailResponsavel = document.getElementById('EmailResponsavel').value;
+  console.log("Email do responsável:", emailResponsavel);
+  const telefoneResponsavel = document.getElementById('TelefoneResponsavel').value;
+  console.log("Telefone do responsável:", telefoneResponsavel);
+  const rgResponsavel = document.getElementById('RGResponsavel').value;
+  console.log("RG do responsável:", rgResponsavel);
+  const cpfResponsavel = document.getElementById('CPFResponsavel').value;
+  console.log("CPF do responsável:", cpfResponsavel);
+
+  // Criar o novo usuário
+  const usuario = {
+    id: allUsers.length + 1,
+    name: nomeAluno,
+    email: email,
+    telefone: telefone,
+    icon: userIcon,
+    data_de_Nascimento: dtNasc,
+    genero: genero,
+    curso: curso,
+    instituicao: instituicao,
+    cpf: cpf,
+    rg: rg,
+    pcd: pcd,
+    responsavel: {
+      nome: nomeResponsavel,
+      email: emailResponsavel,
+      telefone: telefoneResponsavel,
+      rg: rgResponsavel,
+      cpf: cpfResponsavel
+    }
+  };
+
+  // Adicionar o novo usuário à lista de usuários
+  allUsers.push(usuario);
+  console.log("Novo usuário cadastrado:", usuario);
+  
+  closeAddModal();
+
+  saveUsers();
+  fillAddUserList();
+
+  // Preencher os dados do usuário na tela
+  preencherDadosUsuario(usuario);
+});
+
+// Função para preencher os dados do usuário na tela
+function preencherDadosUsuario(usuario) {
+  // Seleciona o elemento onde os dados serão inseridos
+  const contDados = document.querySelector('.cont-dados');
+
+  // Limpa qualquer conteúdo existente
+  contDados.innerHTML = '';
+
+  // Define os dados do usuário em HTML
+  const dadosHTML = `
+      <div class="cont-0">
+          <h3>ID:</h3>
+          <div class="cont-id">
+              <p>${usuario.id}</p>
+          </div>
+      </div>
+      <div class="cont-1 oi">
+          <h3>Nome:</h3>
+          <div class="cont-nome">
+              <p>${usuario.name}</p>
+          </div>
+      </div>
+      <div class="cont-2 oi">
+          <h3>Email:</h3>
+          <div class="cont-email">
+              <p>${usuario.email}</p>
+          </div>
+      </div>
+      <div class="cont-3 oi">
+          <h3>Data de Nascimento:</h3>
+          <div class="cont-dtNasc">
+              <p>${usuario.data_de_Nascimento}</p>
+          </div>
+      </div>
+      <div class="cont-4 oi">
+          <h3>Gênero:</h3>
+          <div class="cont-genero">
+              <p>${usuario.genero}</p>
+          </div>
+      </div>
+      <div class="cont-5 oi">
+          <h3>Telefone:</h3>
+          <div class="cont-telefone">
+              <p>${usuario.telefone}</p>
+          </div>
+      </div>
+      <div class="cont-6 oi">
+          <h3>Curso/Série/Ensino:</h3>
+          <div class="cont-Cse">
+              <p>${usuario.curso}</p>
+          </div>
+      </div>
+      <div class="cont-7 oi">
+          <h3>Instituição:</h3>
+          <div class="cont-instituição">
+              <p>${usuario.instituicao}</p>
+          </div>
+      </div>
+      <div class="cont-8 oi">
+          <h3>Pessoa com Deficiência:</h3>
+          <div class="cont-nome">
+              <p>${usuario.pcd}</p>
+          </div>
+      </div>
+      <div class="cont-9 oi">
+          <h3>RG:</h3>
+          <div class="cont-nome">
+              <p>${usuario.rg}</p>
+          </div>
+      </div>
+      <div class="cont-10 oi">
+          <h3>CPF:</h3>
+          <div class="cont-nome">
+              <p>${usuario.cpf}</p>
+          </div>
+      </div>
+  `;
+
+  // Adiciona os dados do usuário ao elemento
+  contDados.innerHTML = dadosHTML;
+
+  // Se o usuário tiver um responsável, adiciona os dados do responsável
+  // if (usuario.responsavel) {
+  //   const dadosResponsavelHTML = `
+  //       <div class="cont-12">  
+  //           <h3>ID:</h3>
+  //           <div class="cont-id">
+  //               <p>${usuario.responsavel.id}</p>
+  //           </div>
+  //       </div>
+  //       <div class="cont-13 oi">
+  //           <h3>Nome:</h3>
+  //           <div class="cont-nome">
+  //               <p>${usuario.responsavel.nome}</p>
+  //           </div>
+  //       </div>
+  //       <div class="cont-14 oi">
+  //           <h3>Email:</h3>
+  //           <div class="cont-email">
+  //               <p>${usuario.responsavel.email}</p>
+  //           </div>
+  //       </div>
+  //       <div class="cont-15 oi">
+  //           <h3>Telefone:</h3>
+  //           <div class="cont-telefone">
+  //               <p>${usuario.responsavel.telefone}</p>
+  //           </div>
+  //       </div>
+  //       <div class="cont-16 oi">
+  //           <h3>RG:</h3>
+  //           <div class="cont-nome">
+  //               <p>${usuario.responsavel.rg}</p>
+  //           </div>
+  //       </div>
+  //       <div class="cont-17 oi">
+  //           <h3>CPF:</h3>
+  //           <div class="cont-nome">
+  //               <p>${usuario.responsavel.cpf}</p>
+  //           </div>
+  //       </div>
+  //   `;
+  //   contDados.innerHTML += dadosResponsavelHTML;
+  // }
+}  
+
+
+
+
+
+
+
+
+
 
 function filterUsers() {
   const searchInput = document
@@ -1167,31 +1369,3 @@ $(function() {
 });
 
 
-
-
-const telefoneInput = document.getElementById("telefone");
-telefoneInput.addEventListener("input", (e) => {
-  let value = telefoneInput.value.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
-  if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
-  if (value.length > 2 && value.length <= 7) {
-    value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
-  } else if (value.length > 7) {
-    value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7, 11)}`;
-  }
-  telefoneInput.value = value;
-});
-
-
-
-
-const dataNascimentoInput = document.getElementById("add-user-dt_nasc");
-dataNascimentoInput.addEventListener("input", (e) => {
-  let value = dataNascimentoInput.value.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
-  if (value.length > 8) value = value.slice(0, 8); // Limita a 8 dígitos
-  if (value.length > 2 && value.length <= 4) {
-    value = `${value.slice(0, 2)}/${value.slice(2)}`;
-  } else if (value.length > 4) {
-    value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4, 8)}`;
-  }
-  dataNascimentoInput.value = value;
-});

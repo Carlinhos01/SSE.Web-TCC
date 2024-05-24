@@ -7,8 +7,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('/calendar', function () {
-    return view('calendar');
+Route::get('/login', function () {
+    return view('login');
 });
 
 // -----------------------------------------------------------

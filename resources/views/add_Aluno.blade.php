@@ -11,9 +11,9 @@
                 <!-- Email -->
                 <input type="email" name="email" id="add-user-email" placeholder="E-mail do usuário" required>
                 <!-- Telefone -->
-                <input type="tel" name="telefone" id="telefone" placeholder="Telefone do usuário" maxlength="15" required>
+                <input type="tel" name="telefone" id="telefone" placeholder="Telefone do usuário" maxlength="11" required>
                 <!-- Data de Nascimento -->
-                <input type="text" id="add-user-dt_nasc" placeholder="Data de Aniversário" required>
+                <input type="text" id="add-user-dt_nasc" placeholder="Data de Aniversário" maxlength="11" required>
                 <!-- Gênero -->
                 <select name="genero" id="add-user-genero" required>
                     <option value="" disabled selected>Selecione o Gênero</option>
