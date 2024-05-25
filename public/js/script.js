@@ -175,42 +175,34 @@ function fillAddUserList(users = allUsers) {
 fillAddUserList();
 
 
-document.getElementById("add-user-form").addEventListener("submit", function (event) {
+
+
+
+
+
+let selectedUser = null; // Usuário selecionado
+
+// Evento para adicionar usuário quando o formulário é enviado
+document.getElementById("add-user-form").addEventListener("submit", function(event) {
   event.preventDefault();
 
-  // Obter os valores dos campos do formulário
+  // Obter os valores dos campos do formulário...
   const userIcon = document.getElementById("add-user-icon").value;
-  console.log("Icone do usuário:", userIcon);
   const nomeAluno = document.getElementById('add-user-name').value;
-  console.log("Nome do aluno:", nomeAluno);
   const email = document.getElementById('add-user-email').value;
-  console.log("Email do aluno:", email);
   const telefone = document.getElementById('telefone').value;
-  console.log("Telefone do aluno:", telefone);
   const dtNasc = document.getElementById('add-user-dt_nasc').value;
-  console.log("Data de Nascimento do aluno:", dtNasc);
   const genero = document.getElementById('add-user-genero').value;
-  console.log("Gênero do aluno:", genero);
   const curso = document.getElementById('cur-ser-ens').value;
-  console.log("Curso do aluno:", curso);
   const instituicao = document.getElementById('instituicao').value;
-  console.log("Instituição do aluno:", instituicao);
   const cpf = document.getElementById('add-user-cpf').value;
-  console.log("CPF do aluno:", cpf);
   const rg = document.getElementById('add-user-rg').value;
-  console.log("RG do aluno:", rg);
   const pcd = document.getElementById('add-user-pcd').value;
-  console.log("PCD do aluno:", pcd);
   const nomeResponsavel = document.getElementById('NomeResponsavel').value;
-  console.log("Nome do responsável:", nomeResponsavel);
   const emailResponsavel = document.getElementById('EmailResponsavel').value;
-  console.log("Email do responsável:", emailResponsavel);
   const telefoneResponsavel = document.getElementById('TelefoneResponsavel').value;
-  console.log("Telefone do responsável:", telefoneResponsavel);
   const rgResponsavel = document.getElementById('RGResponsavel').value;
-  console.log("RG do responsável:", rgResponsavel);
   const cpfResponsavel = document.getElementById('CPFResponsavel').value;
-  console.log("CPF do responsável:", cpfResponsavel);
 
   // Criar o novo usuário
   const usuario = {
@@ -238,23 +230,33 @@ document.getElementById("add-user-form").addEventListener("submit", function (ev
   // Adicionar o novo usuário à lista de usuários
   allUsers.push(usuario);
   console.log("Novo usuário cadastrado:", usuario);
-  
+
+  // Fechar o modal...
   closeAddModal();
 
+  // Salvar os usuários...
   saveUsers();
   fillAddUserList();
-
-  // Preencher os dados do usuário na tela
-  preencherDadosUsuario(usuario);
 });
+
+// Função para exibir os dados apenas do usuário selecionado
+function exibirDadosUsuarioSelecionado() {
+  // Seleciona o elemento onde os dados serão inseridos
+  const contDados = document.querySelector('.cont-dados');
+
+  // Remove os dados dos usuários que não estão selecionados
+  contDados.innerHTML = ''; // Limpa os dados exibidos
+
+  // Preenche os dados apenas do usuário selecionado
+  if (selectedUser) {
+    preencherDadosUsuario(selectedUser);
+  }
+}
 
 // Função para preencher os dados do usuário na tela
 function preencherDadosUsuario(usuario) {
   // Seleciona o elemento onde os dados serão inseridos
   const contDados = document.querySelector('.cont-dados');
-
-  // Limpa qualquer conteúdo existente
-  contDados.innerHTML = '';
 
   // Define os dados do usuário em HTML
   const dadosHTML = `
@@ -328,51 +330,33 @@ function preencherDadosUsuario(usuario) {
 
   // Adiciona os dados do usuário ao elemento
   contDados.innerHTML = dadosHTML;
+}
 
-  // Se o usuário tiver um responsável, adiciona os dados do responsável
-  // if (usuario.responsavel) {
-  //   const dadosResponsavelHTML = `
-  //       <div class="cont-12">  
-  //           <h3>ID:</h3>
-  //           <div class="cont-id">
-  //               <p>${usuario.responsavel.id}</p>
-  //           </div>
-  //       </div>
-  //       <div class="cont-13 oi">
-  //           <h3>Nome:</h3>
-  //           <div class="cont-nome">
-  //               <p>${usuario.responsavel.nome}</p>
-  //           </div>
-  //       </div>
-  //       <div class="cont-14 oi">
-  //           <h3>Email:</h3>
-  //           <div class="cont-email">
-  //               <p>${usuario.responsavel.email}</p>
-  //           </div>
-  //       </div>
-  //       <div class="cont-15 oi">
-  //           <h3>Telefone:</h3>
-  //           <div class="cont-telefone">
-  //               <p>${usuario.responsavel.telefone}</p>
-  //           </div>
-  //       </div>
-  //       <div class="cont-16 oi">
-  //           <h3>RG:</h3>
-  //           <div class="cont-nome">
-  //               <p>${usuario.responsavel.rg}</p>
-  //           </div>
-  //       </div>
-  //       <div class="cont-17 oi">
-  //           <h3>CPF:</h3>
-  //           <div class="cont-nome">
-  //               <p>${usuario.responsavel.cpf}</p>
-  //           </div>
-  //       </div>
-  //   `;
-  //   contDados.innerHTML += dadosResponsavelHTML;
-  // }
-}  
+// Função para salvar os usuários no armazenamento local
+function saveUsers() {
+  localStorage.setItem('allUsers', JSON.stringify(allUsers));
+}
 
+// Função para carregar os usuários do armazenamento local
+function loadUsers() {
+  const usersData = localStorage.getItem('allUsers');
+  if (usersData) {
+    allUsers = JSON.parse(usersData);
+  }
+}
+
+// Carregar os usuários ao carregar a página
+window.addEventListener('load', function() {
+  loadUsers();
+  selectedUser = allUsers[0]; // Define o primeiro usuário como selecionado
+  exibirDadosUsuarioSelecionado();
+});
+
+// Evento para selecionar um usuário na lista
+function selecionarUsuario(index) {
+  selectedUser = allUsers[index];
+  exibirDadosUsuarioSelecionado();
+}
 
 
 
@@ -1367,5 +1351,3 @@ $(function() {
       }
   });
 });
-
-
