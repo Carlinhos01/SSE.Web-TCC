@@ -31,4 +31,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'firebase' => [
+        'apiKey' => env('FIREBASE_API_KEI'),
+        'authDomain' => env('FIREBASE_AUTH_DOMAIN'),
+        'databaseURL' => env('FIREBASE_DATABASE_URL'),
+        'projectId' => env('FIREBASE_PROJECT_ID'),
+        'storageBuckert' => env('FIREBASE_STORAGE_BUCKERT'),
+        'messagingSenderId' => env('FIREBASE_MESSAGIN_SENDER_ID'),
+        'appId' => env('FIREBASE_APP_ID'),
+        'measurementId' => env('FIREBASE_MEASUREMENT_ID'),
+    ],
+
 ];

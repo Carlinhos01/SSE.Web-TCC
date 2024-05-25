@@ -1,3 +1,4 @@
+@yield('content')
 <div id="myModal" class="modal-cont-user">
     <div class="modal-content-user">
         <!-- Barra de Navegação -->
