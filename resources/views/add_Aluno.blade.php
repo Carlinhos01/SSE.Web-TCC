@@ -1,9 +1,11 @@
+@section('content')
 <div id="addmodal" class="addmodal">
     <div class="addmodal-content">
         <span class="addmodal-close">&times;</span>
         <h2>Adicionar Usuário</h2>
         <div class="cont-card-user-add">
-            <form id="add-user-form">
+            
+            <form id="add-user-form" action="#" method="post">
             <label for="" id="labelforaluhj">Aluno:</label>
 
                 <!-- Nome -->
@@ -66,8 +68,72 @@
                 <!-- CPF do Responsável -->
                 <input type="text" name="CPFResponsavel" id="CPFResponsavel" placeholder="CPF do Responsável" required>
             </div> 
-               <button type="submit" class="btn-submit">Adicionar</button>
+               <button type="submit" class="btn-submit" id="add_aluno">Adicionar</button>
             </form>
-        
+       
     </div>
 </div>
+@endsection
+
+@push('script')
+<script>
+    $(document).ready(function(){
+
+        //credenciais firebase 
+        const firebaseConfig = {
+    apiKey: "{{config('services.firebase.apiKey')}}",
+    authDomain: "{{config('services.firebase.authDomain')}}",
+    databaseURL: "{{config('services.firebase.databaseURL')}}",
+    projectId: "{{config('services.firebase.projectId')}}",
+    storageBucket: "{{config('services.firebase.storageBucket')}}",
+    messagingSenderId: "{{config('services.firebase.messagingSenderId')}}",
+    appId: "{{config('services.firebase.appId')}}",
+    measurementId: "{{config('services.firebase.measurementId')}}"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+
+        //criar função aluno
+        $("#add_aluno").on('click', function(){
+
+
+            var aluno = $('#add-user-form').serializeArray();
+            var nome_Aluno = document.getElementById('add-user-name').value:
+            var email_Aluno = document.getElementById('add-user-email').value:
+            var tel_Aluno = document.getElementById('telefone').value:
+            var data_nasc_Aluno = document.getElementById('add-user-dt_nasc').value:
+            var genero_Aluno = document.getElementById('add-user-genero').value:
+            var cur_Aluno = document.getElementById('cur-ser-ens').value:
+            var instituicao = document.getElementById('instituicao').value:
+            var cpf_Aluno = document.getElementById('add-user-cpf').value:
+            var rg_Aluno = document.getElementById('add-user-rg').value:
+            var pcd_Aluno = document.getElementById('add-user-pcd').value:
+            var tipo_cartao_Aluno = document.getElementById('op_card').value:
+
+            console.log(aluno)
+
+
+            firebase.database().ref('Aluno').set({
+                
+      
+        rg: add-user-rg,
+        cpf:add-user-cpf,
+        nome_alu:add-user-name,
+        dt_nascimento:add-user-dt_nasc,
+        pcd:add-user-pcd,
+        cur_ser_ens:cur-ser-ens,
+        instituicao:instituicao,
+        tel:telefone,
+        email:add-user-email,
+        tipo_cartao:op_card,
+        genero:add-user-genero,
+            })
+        })
+
+
+    })
+</script>
+@endpush

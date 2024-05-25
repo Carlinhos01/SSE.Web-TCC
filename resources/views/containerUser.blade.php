@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
+</script>
+
+
 <div class="container-user">
     <div class="conteiner-user-unic">
         <div class="cont-add-user">
@@ -34,3 +49,6 @@
         </div>
     </div>
 </div>
+    @yield('content')
+</body>
+</html>
