@@ -57,15 +57,15 @@
                     <option value="Funcionário">Funcionário</option>
                 </select>
                 <label for="" id="labelforRsp">Responsável:</label>
-                <!-- Nome do Responsável -->
+                 Nome do Responsável 
                 <input type="text" name="nomeResponsavel" id="NomeResponsavel" placeholder="Nome do Responsável" required>
-                <!-- Email do Responsável -->
+                 Email do Responsável 
                 <input type="email" name="emailResponsavel" id="EmailResponsavel" placeholder="Email do Responsável" required>
-                <!-- Telefone do Responsável -->
+                 Telefone do Responsável 
                 <input type="tel" name="telefoneResponsavel" id="TelefoneResponsavel" placeholder="Telefone do Responsável" maxlength="15" required>
-                <!-- RG do Responsável -->
+                 RG do Responsável 
                 <input type="text" name="RGResponsavel" id="RGResponsavel" placeholder="RG do Responsável" required>
-                <!-- CPF do Responsável -->
+                 CPF do Responsável 
                 <input type="text" name="CPFResponsavel" id="CPFResponsavel" placeholder="CPF do Responsável" required>
             </div> 
                <button type="submit" class="btn-submit" id="add_aluno">Adicionar</button>
@@ -95,41 +95,43 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
 
+ //variavel publica
+ var database = firebase.database();
+
+
+
 
         //criar função aluno
         $("#add_aluno").on('click', function(){
-
-
             var aluno = $('#add-user-form').serializeArray();
-            var nome_Aluno = document.getElementById('add-user-name').value:
-            var email_Aluno = document.getElementById('add-user-email').value:
-            var tel_Aluno = document.getElementById('telefone').value:
-            var data_nasc_Aluno = document.getElementById('add-user-dt_nasc').value:
-            var genero_Aluno = document.getElementById('add-user-genero').value:
-            var cur_Aluno = document.getElementById('cur-ser-ens').value:
-            var instituicao = document.getElementById('instituicao').value:
-            var cpf_Aluno = document.getElementById('add-user-cpf').value:
-            var rg_Aluno = document.getElementById('add-user-rg').value:
-            var pcd_Aluno = document.getElementById('add-user-pcd').value:
-            var tipo_cartao_Aluno = document.getElementById('op_card').value:
+            var nome_Aluno = document.getElementById('add-user-name').value;
+            var email_Aluno = document.getElementById('add-user-email').value;
+            var tel_Aluno = document.getElementById('telefone').value;
+            var data_nasc_Aluno = document.getElementById('add-user-dt_nasc').value;
+            var genero_Aluno = document.getElementById('add-user-genero').value;
+            var cur_Aluno = document.getElementById('cur-ser-ens').value;
+            var instituicao = document.getElementById('instituicao').value;
+            var cpf_Aluno = document.getElementById('add-user-cpf').value;
+            var rg_Aluno = document.getElementById('add-user-rg').value;
+            var pcd_Aluno = document.getElementById('add-user-pcd').value;
+            var tipo_cartao_Aluno = document.getElementById('op_card').value;
 
             console.log(aluno)
+            return false
 
-
-            firebase.database().ref('Aluno').set({
-                
-      
+            
+            firebase.database().ref('Aluno/').set({
         rg: add-user-rg,
-        cpf:add-user-cpf,
-        nome_alu:add-user-name,
-        dt_nascimento:add-user-dt_nasc,
-        pcd:add-user-pcd,
-        cur_ser_ens:cur-ser-ens,
-        instituicao:instituicao,
-        tel:telefone,
-        email:add-user-email,
-        tipo_cartao:op_card,
-        genero:add-user-genero,
+        cpf: add-user-cpf,
+        nome_alu: add-user-name,
+        dt_nascimento: add-user-dt_nasc,
+        pcd: add-user-pcd,
+        cur_ser_ens: cur-ser-ens,
+        instituicao: instituicao,
+        tel: telefone,
+        email: add-user-email,
+        tipo_cartao: op_card,
+        genero: add-user-genero,
             })
         })
 
