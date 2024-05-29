@@ -63,7 +63,7 @@ const months = [
 ];
 
 // Array para armazenar eventos
-const eventsArr = [];
+
 
 // Variáveis para armazenar a data atual e o mês e ano atuais
 let today = new Date(),
@@ -174,11 +174,22 @@ function fillAddUserList(users = allUsers) {
 // Preenche a lista de usuários ao carregar a página
 fillAddUserList();
 
+const firebaseConfig = {
+  apiKey: "{{config('services.firebase.apiKey')}}",
+  authDomain: "{{config('services.firebase.authDomain')}}",
+  databaseURL: "{{config('services.firebase.databaseURL')}}",
+  projectId: "{{config('services.firebase.projectId')}}",
+  storageBucket: "{{config('services.firebase.storageBucket')}}",
+  messagingSenderId: "{{config('services.firebase.messagingSenderId')}}",
+  appId: "{{config('services.firebase.appId')}}",
+  measurementId: "{{config('services.firebase.measurementId')}}"
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-
-
-
+const allUsers = [];
 
 let selectedUser = null; // Usuário selecionado
 
@@ -205,6 +216,7 @@ document.getElementById("add-user-form").addEventListener("submit", function(eve
   const cpfResponsavel = document.getElementById('CPFResponsavel').value;
 
   // Criar o novo usuário
+  
   const usuario = {
     id: allUsers.length + 1,
     name: nomeAluno,
@@ -229,6 +241,7 @@ document.getElementById("add-user-form").addEventListener("submit", function(eve
 
   // Adicionar o novo usuário à lista de usuários
   allUsers.push(usuario);
+  allUsers.push(firebase);
   console.log("Novo usuário cadastrado:", usuario);
 
   // Fechar o modal...
