@@ -234,9 +234,7 @@ document.getElementById("add-user-form").addEventListener("submit", function(eve
   // Fechar o modal...
   closeAddModal();
 
-  // Salvar os usuários...
-  saveUsers();
-  fillAddUserList();
+  // Salvar os usuários...-
 });
 
 // Função para exibir os dados apenas do usuário selecionado
@@ -250,10 +248,11 @@ function exibirDadosUsuarioSelecionado() {
   // Preenche os dados apenas do usuário selecionado
   if (selectedUser) {
     preencherDadosUsuario(selectedUser);
+    if (selectedUser.responsavel) {
+      preencherDadosResponsavel(selectedUser.responsavel);
+    }
   }
 }
-
-// Função para preencher os dados do usuário na tela
 function preencherDadosUsuario(usuario) {
   // Seleciona o elemento onde os dados serão inseridos
   const contDados = document.querySelector('.cont-dados');
@@ -330,7 +329,65 @@ function preencherDadosUsuario(usuario) {
 
   // Adiciona os dados do usuário ao elemento
   contDados.innerHTML = dadosHTML;
+
+  // Verifica se há um responsável
+  if (usuario.responsavel) {
+    preencherDadosResponsavel(usuario.responsavel);
+  }
+
+  saveUsers();
 }
+
+// Função para preencher os dados do responsável na tela
+function preencherDadosResponsavel(responsavel) {
+  // Seleciona o elemento onde os dados do responsável serão inseridos
+  const contDados = document.querySelector('.cont-dados');
+
+  // Define os dados do responsável em HTML
+  const dadosResponsavelHTML = `
+      <div class="cont-12">  
+          <h3>ID:</h3>
+          <div class="cont-id">
+              <p>${responsavel.id}</p>
+          </div>
+      </div>
+      <div class="cont-13 oi">
+          <h3>Nome:</h3>
+          <div class="cont-nome">
+              <p>${responsavel.nome}</p>
+          </div>
+      </div>
+      <div class="cont-14 oi">
+          <h3>Email:</h3>
+          <div class="cont-email">
+              <p>${responsavel.email}</p>
+          </div>
+      </div>
+      <div class="cont-15 oi">
+          <h3>Telefone:</h3>
+          <div class="cont-telefone">
+              <p>${responsavel.telefone}</p>
+          </div>
+      </div>
+      <div class="cont-16 oi">
+          <h3>RG:</h3>
+          <div class="cont-nome">
+              <p>${responsavel.rg}</p>
+          </div>
+      </div>
+      <div class="cont-17 oi">
+          <h3>CPF:</h3>
+          <div class="cont-nome">
+              <p>${responsavel.cpf}</p>
+          </div>
+      </div>
+  `;
+
+  // Adiciona os dados do responsável ao elemento
+  contDados.innerHTML += dadosResponsavelHTML;
+}
+
+
 
 // Função para salvar os usuários no armazenamento local
 function saveUsers() {
@@ -348,19 +405,24 @@ function loadUsers() {
 // Carregar os usuários ao carregar a página
 window.addEventListener('load', function() {
   loadUsers();
-  selectedUser = allUsers[0]; // Define o primeiro usuário como selecionado
-  exibirDadosUsuarioSelecionado();
+  // Verifica se há um usuário selecionado anteriormente
+  if (selectedUser) {
+    // Encontra o índice do usuário selecionado na lista allUsers
+    const selectedIndex = allUsers.findIndex(user => user.id === selectedUser.id);
+    if (selectedIndex !== -1) {
+      // Se o usuário selecionado estiver na lista, exibe seus dados
+      selecionarUsuario(selectedIndex);
+    } else {
+      // Caso contrário, seleciona o primeiro usuário da lista
+      selectedUser = allUsers[0];
+      exibirDadosUsuarioSelecionado();
+    }
+  } else if (allUsers.length > 0) {
+    // Se não houver usuário selecionado anteriormente, seleciona o primeiro usuário da lista
+    selectedUser = allUsers[0];
+    exibirDadosUsuarioSelecionado();
+  }
 });
-
-// Evento para selecionar um usuário na lista
-function selecionarUsuario(index) {
-  selectedUser = allUsers[index];
-  exibirDadosUsuarioSelecionado();
-}
-
-
-
-
 
 
 
@@ -757,15 +819,28 @@ function toggleSelectUser(user, element) {
     myModal.style.display = "flex";
     addUserToSelected(user);
     addUserToWrapper(user, addUserElement);
-  } else {
+    
+    // Definir o usuário selecionado
+    selectedUser = user;
+    
+    // Exibir os dados do usuário selecionado
+    exibirDadosUsuarioSelecionado();
+  }
+   else {
     selectedUsers.splice(index, 1);
     saveSelectedUsers(selectedUsers);
     element.classList.remove("selected");
     myModal.style.display = "none";
     removeUserFromSelected(user.id);
     removeUserFromWrapper(user.id, addUserElement);
+    
+    // Verificar se o usuário desselecionado é o usuário selecionado atualmente
+    if(selectedUser && selectedUser.id === user.id) {
+      selectedUser = null; // Limpar o usuário selecionado
+    }
   }
 }
+
 
 // Funções auxiliares para manipulação de elementos
 function addUserToWrapper(user, addUserElement) {
