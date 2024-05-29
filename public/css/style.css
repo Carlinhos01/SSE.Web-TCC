@@ -2268,6 +2268,30 @@ input:focus {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+
+.cont-dados-resp {
+  height: 90%;
+  width: 95%;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+
+
+
+
+.cont-dados-resp{
+  height: 90%;
+  width: 95%;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .cont-0{
   width: auto;
   height: 2vw;
