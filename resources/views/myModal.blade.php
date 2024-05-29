@@ -30,7 +30,7 @@
         </div>
         <!-- fim chat -->
         <div class="modal-screen cont-modal-user-responsavel" id="responsavel">
-        <div class="cont-dados"> 
+        <div class="cont-dados-resp"> 
                 
             </div>
         </div>

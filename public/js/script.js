@@ -247,7 +247,9 @@ document.getElementById("add-user-form").addEventListener("submit", function(eve
   // Fechar o modal...
   closeAddModal();
 
-  // Salvar os usuários...-
+  // Salvar os usuários...
+  saveUsers();
+  fillAddUserList();
 });
 
 // Função para exibir os dados apenas do usuário selecionado
@@ -266,6 +268,9 @@ function exibirDadosUsuarioSelecionado() {
     }
   }
 }
+
+
+// Função para preencher os dados do usuário na tela
 function preencherDadosUsuario(usuario) {
   // Seleciona o elemento onde os dados serão inseridos
   const contDados = document.querySelector('.cont-dados');
@@ -343,18 +348,15 @@ function preencherDadosUsuario(usuario) {
   // Adiciona os dados do usuário ao elemento
   contDados.innerHTML = dadosHTML;
 
-  // Verifica se há um responsável
-  if (usuario.responsavel) {
-    preencherDadosResponsavel(usuario.responsavel);
-  }
-
-  saveUsers();
+  saveUsers()
 }
 
-// Função para preencher os dados do responsável na tela
 function preencherDadosResponsavel(responsavel) {
   // Seleciona o elemento onde os dados do responsável serão inseridos
-  const contDados = document.querySelector('.cont-dados');
+  const contDadosResp = document.querySelector('.cont-dados-resp');
+
+  // Limpa o conteúdo anterior antes de adicionar os novos dados do responsável
+  contDadosResp.innerHTML = '';
 
   // Define os dados do responsável em HTML
   const dadosResponsavelHTML = `
@@ -397,9 +399,8 @@ function preencherDadosResponsavel(responsavel) {
   `;
 
   // Adiciona os dados do responsável ao elemento
-  contDados.innerHTML += dadosResponsavelHTML;
+  contDadosResp.innerHTML = dadosResponsavelHTML;
 }
-
 
 
 // Função para salvar os usuários no armazenamento local
